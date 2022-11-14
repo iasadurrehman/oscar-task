@@ -13,5 +13,9 @@
         "psr-4": {
             "Oscar\\Test\\": "tests/"
         }
+    },
+    "require": {
+        "vlucas/phpdotenv": "^5.5",
+        "ext-pdo": "*"
     }
 }
