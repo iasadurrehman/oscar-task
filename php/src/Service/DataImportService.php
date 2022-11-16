@@ -3,7 +3,6 @@
 namespace Oscar\Service;
 
 use Oscar\Classes\FileReaderInterface;
-use Oscar\Config\Database;
 use Oscar\Models\Car;
 use Oscar\Models\CarMeta;
 use Oscar\Models\Location;
@@ -24,15 +23,15 @@ class DataImportService
                 $carMeta = [];
                 $location = '';
                 foreach ($carData as $att => &$carDatum) {
-                    if ($att == 'Location') {
+                    if ($att == 'Location' || $att == 'location') {
                         $location = $carDatum;
                         continue;
                     }
                     if (in_array($att, ['Number of doors', 'Number of seats']) && $carDatum !== null) {
                         $carDatum = abs(intval($carDatum));
                     }
-                    if (array_search($att, Car::FIELDS)) {
-                        $car[array_search($att, Car::FIELDS)] = $carDatum;
+                    if (array_search($att, Car::FIELDS) || array_key_exists($att, Car::FIELDS)) {
+                        $car[array_search($att, Car::FIELDS) ?: $att] = $carDatum;
                     } else {
                         if ($carDatum !== null) {
                             $carMeta[] = ['meta_key' => $att, 'meta_value' => $carDatum];
@@ -54,7 +53,7 @@ class DataImportService
                     return ['success' => false, 'message' => $e->getMessage(), 'code' => 503];
                 }
             }
-            return ['success' => true, 'message' => 'Import completed', 'code' => 201];
+            return ['success' => true, 'message' => 'success', 'code' => 201];
         }
 
         return ['success' => false, 'message' => 'Bad Request', 'code' => 400];

@@ -65,12 +65,17 @@ class Car
 
     public function insert(array $data): int
     {
-        $fields = array_keys($data);
-        $values = array_values($data);
-        $fieldList = implode(',', $fields);
-        $qs = str_repeat("?,", count($fields) - 1);
-        $query = $this->db->prepare("INSERT INTO cars ($fieldList) values(${qs}?)");
-        $query->execute($values);
+        try{
+            $fields = array_keys($data);
+            $values = array_values($data);
+            $fieldList = implode(',', $fields);
+            $qs = str_repeat("?,", count($fields) - 1);
+            $query = $this->db->prepare("INSERT INTO cars ($fieldList) values(${qs}?)");
+            $query->execute($values);
+        }
+        catch (\Exception $e){
+            exit(json_encode(['status' => false, 'data' => [], 'message' => $e->getMessage()]));
+        }
         return $this->db->lastInsertId();
     }
 }
