@@ -15,7 +15,7 @@ class DataImportService
     {
     }
 
-    public function import(array $transformedArray): void
+    public function import(array $transformedArray): array
     {
         if ($transformedArray) {
             $car = [];
@@ -51,11 +51,13 @@ class DataImportService
                 }
                 catch (\Exception $e){
                     $this->db->rollBack();
-                    $e->getMessage();
+                    return ['success'=> false, 'message' => $e->getMessage(), 'code' => 503];
                 }
             }
+            return ['success'=> true, 'message' => 'Import completed', 'code' => 201];
         }
-        die;
+
+        return ['success'=> false, 'message' => 'Bad Request', 'code' => 400];
     }
 
     public function read($filePath): array
