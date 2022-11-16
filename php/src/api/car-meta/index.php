@@ -2,6 +2,7 @@
 
 use Oscar\Config\Database;
 use Oscar\Models\Car;
+use Oscar\Models\CarMeta;
 
 ini_set('display_errors', 1);
 
@@ -22,8 +23,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $carId = (int)$_GET['car_id'];
     }
     if ($carId) {
-        $carModel = new Car($connection);
-        $carResponse = $carModel->find($carId);
+        $carMeta = new CarMeta($connection);
+        $carResponse = $carMeta->findByCarId($carId);
         http_response_code($carResponse['code']);
         echo json_encode(
             ['data' => $carResponse['data'], 'status' => $carResponse['status'], 'message' => $carResponse['message']]
