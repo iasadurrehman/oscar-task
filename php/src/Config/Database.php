@@ -2,9 +2,11 @@
 
 namespace Oscar\Config;
 
+use PDO;
+
 class Database
 {
-    public function __construct(private $db = null)
+    public function __construct(private ?PDO $db = null)
     {
         $host = $_ENV['DB_HOST'];
         $port = $_ENV['DB_PORT'];
@@ -12,7 +14,7 @@ class Database
         $user = $_ENV['DB_USERNAME'];
         $pass = $_ENV['DB_PASSWORD'];
         try {
-            $this->db = new \PDO(
+            $this->db = new PDO(
                 "mysql:host=$host;port=$port;dbname=$db",
                 $user,
                 $pass

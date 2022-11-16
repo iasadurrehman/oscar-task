@@ -2,7 +2,7 @@
 ini_set('display_errors', 1);
 define('BASE_PATH', dirname(__DIR__, 1));
 require_once BASE_PATH . '/bootstrap/app.php';
-use Oscar\Controller\Car;
+use Oscar\Models\Car;
 
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");

@@ -29,8 +29,9 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST') {
         }
     }
     if (isset($reader)) {
-        $dataImport = new DataImportService($reader);
-        $dataImport->import($_FILES['file']['tmp_name']);
+        $dataImport = new DataImportService($reader, $connection);
+        $transformedArray = $dataImport->read($_FILES['file']['tmp_name']);
+        $dataImport->import($transformedArray);
     }
     die;
 }
