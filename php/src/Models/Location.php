@@ -14,7 +14,7 @@ class Location
     public function insertOrFetch(string $locationName): int
     {
         $fetchLocationQuery = "SELECT id from locations WHERE name LIKE '%$locationName%'";
-        $result = $this->db->query($fetchLocationQuery)->fetch();
+        $result = $this->db->query($fetchLocationQuery)->fetch(PDO::FETCH_ASSOC);
         if(!empty($result)){
             return $result['id'];
         }

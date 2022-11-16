@@ -10,9 +10,10 @@ use Oscar\Models\Location;
 
 class DataImportService
 {
-    public function __construct(private FileReaderInterface $fileReader,
-                                private \PDO $db)
-    {
+    public function __construct(
+        private FileReaderInterface $fileReader,
+        private \PDO $db
+    ) {
     }
 
     public function import(array $transformedArray): array
@@ -23,7 +24,7 @@ class DataImportService
                 $carMeta = [];
                 $location = '';
                 foreach ($carData as $att => &$carDatum) {
-                    if($att == 'Location'){
+                    if ($att == 'Location') {
                         $location = $carDatum;
                         continue;
                     }
@@ -38,9 +39,9 @@ class DataImportService
                         }
                     }
                 }
-                try{
+                try {
                     $this->db->beginTransaction();
-                    $locationModel =  new Location($this->db);
+                    $locationModel = new Location($this->db);
                     $locationId = $locationModel->insertOrFetch($location);
                     $car['location_id'] = $locationId;
                     $carModel = new Car($this->db);
@@ -48,16 +49,15 @@ class DataImportService
                     $carMetaModel = new CarMeta($this->db);
                     $carMetaModel->insert($carMeta, $carId);
                     $this->db->commit();
-                }
-                catch (\Exception $e){
+                } catch (\Exception $e) {
                     $this->db->rollBack();
-                    return ['success'=> false, 'message' => $e->getMessage(), 'code' => 503];
+                    return ['success' => false, 'message' => $e->getMessage(), 'code' => 503];
                 }
             }
-            return ['success'=> true, 'message' => 'Import completed', 'code' => 201];
+            return ['success' => true, 'message' => 'Import completed', 'code' => 201];
         }
 
-        return ['success'=> false, 'message' => 'Bad Request', 'code' => 400];
+        return ['success' => false, 'message' => 'Bad Request', 'code' => 400];
     }
 
     public function read($filePath): array
