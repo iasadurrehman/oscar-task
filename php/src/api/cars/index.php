@@ -17,6 +17,11 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 
 $db = new Database();
 $connection = $db->connect();
+/**
+ * End point to retrieve all cars
+ * params supported are page and limit for paginated response (default page = 1, limit = 10)
+ * if limit and page is not passed in query params or if both params are not integer then default params applied
+ */
 $limit = 10;
 $page = 1;
 if (isset($_GET['limit'])) {

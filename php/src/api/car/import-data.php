@@ -19,6 +19,13 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 $db = new Database();
 $connection = $db->connect();
 
+/**
+ * If request method is POST
+ * and file uploaded is of type JSON then factory calls for JSON reader, for csv, calls for CSVReader
+ * Once the reader is found,
+ * get the input file and pass to Dataimport service for processing and import
+ * response with status provided
+ */
 if ($_SERVER["REQUEST_METHOD"] == 'POST') {
     $reader = null;
     if (isset($_FILES['file']) && $_FILES['file']['type'] === 'application/json') {

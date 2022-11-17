@@ -5,6 +5,11 @@ namespace Oscar\Classes;
 class CsvReader implements FileReaderInterface
 {
 
+    /**
+     * Parse csv and make equivalent associative array
+     * @param $input
+     * @return array
+     */
     public function readFile($input): array
     {
         $csvArray = [];

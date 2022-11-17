@@ -11,6 +11,12 @@ class Location
     {
     }
 
+    /**
+     * Checks for the location, if it exists in database then returns its ID
+     * otherwise create the location and returns the newly inserted location ID
+     * @param string $locationName
+     * @return int
+     */
     public function insertOrFetch(string $locationName): int
     {
         $fetchLocationQuery = "SELECT id from locations WHERE name LIKE '%$locationName%'";
@@ -23,6 +29,11 @@ class Location
         return $this->db->lastInsertId();
     }
 
+    /**
+     * Get the location object when location id is passed
+     * @param int $locationId
+     * @return mixed
+     */
     public function find(int $locationId)
     {
         $fetchLocationQuery = "SELECT * from locations WHERE id = $locationId";

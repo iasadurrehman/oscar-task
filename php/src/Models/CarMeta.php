@@ -39,7 +39,12 @@ class CarMeta
         die;
     }
 
-    public function getCarMetaByCarId(int $carId)
+    /**
+     * Return car meta by car Id
+     * @param int $carId
+     * @return array|false
+     */
+    public function getCarMetaByCarId(int $carId): bool|array
     {
         $fetchMetaCarQuery = "SELECT * from car_meta WHERE car_meta.car_id = $carId ";
         $resultCarMeta = $this->db->query($fetchMetaCarQuery)->fetchAll(PDO::FETCH_ASSOC);

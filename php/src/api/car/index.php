@@ -18,6 +18,11 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 
 $db = new Database();
 $connection = $db->connect();
+/**
+ * If request method is GET with an ID or query parameter car_id
+ * Find the car and return the data
+ * return 404 if not found or 400 if car_id not provided
+ */
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $carId = 0;
     if (isset($_GET['car_id'])) {
@@ -37,6 +42,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         );
     }
 }
+/**
+ * If request method is POST
+ * Create new Resource of the given JSON
+ */
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $reader = new JsonReader();
     $inputJSON = $reader->readFile('php://input');

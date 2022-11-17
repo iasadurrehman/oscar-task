@@ -17,6 +17,10 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 
 $db = new Database();
 $connection = $db->connect();
+/**
+ * Endpoint for Car meta by Car ID
+ * finds car meta by car id from CarMetaModel
+ */
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $carId = 0;
     if (isset($_GET['car_id'])) {
