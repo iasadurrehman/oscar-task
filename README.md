@@ -4,18 +4,18 @@ Oscar task is developed by Asad Ur Rehman for interview round 3. Built using cor
 
 ## Deployment Instructions
 
-- Clone repository
+- Clone repository and go inside the folder
 - run ```docker-compose build```
 - run ```docker-compose up -d```
 - run ```docker-compose exec -it php-apache-environment /bin/bash/``` to get into docker container and run ```composer install```
 - Connect mysql on localhost, create database with name ```'oscar'``` and import sql dump included in repository
-- Open localhost on browser and check it's running
+- Open localhost on browser and check it's ```running```
 
 Routes to be used:
 
 | Route | Method | Function | Usage |
 | ----- | ------ | ------- | ------ |
-| ```/api/cars/?limit=10&page=1``` | ```GET``` | Get all cars from system in paginated response | query params: ```limit```,  ```page``` Default page=1, limit=10 
+| ```/api/cars/?limit=10&page=1``` | ```GET``` | Get all cars from system in paginated response | query params: ```limit```,  ```page``` Default page=1, limit=10 |
 | ```/api/car-meta?car_id={car_id}``` | ```GET``` | Get all car meta of provided car id | -
 | ```/api/car/{id}``` | ```GET``` | Get car resource by car id | -
 | ```/api/car/``` | ```POST``` | Create a new Car resource | Data should be provided in ```application/json```
